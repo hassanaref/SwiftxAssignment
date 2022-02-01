@@ -22,6 +22,9 @@ router.patch('/update/:date', async(req,res)=> {
     const targetdateParam = req.params.date;
     let {date,distance,time} = req.body
     const targetDate = await timesRepo.getOneTime(req.params.date)
+    if(targetDate==null){
+        res.send("date not found")
+    } else {
     if (date==null){
         date=targetDate.date
     }
@@ -32,7 +35,7 @@ router.patch('/update/:date', async(req,res)=> {
         time=targetDate.time
     }
     const updatedTime = await timesRepo.editTime(targetdateParam,date,distance,time)
-    res.json(updatedTime)
+    res.json(updatedTime)}
 })
 
 router.delete('/delete/:date', async(req,res)=>{

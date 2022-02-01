@@ -40,7 +40,7 @@ Content-Type: application/json
 GET http://localhost:3000/gettimes/
 
 ###getOneTime
-GET http://localhost:3000/getTime/12-12
+GET http://localhost:3000/getTime/12-12/
 
 
 ###updateTime
