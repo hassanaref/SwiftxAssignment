@@ -8,7 +8,6 @@ const {
   requirePasswordConfirmation,
   requireValidPasswordForUser
 } = require('./validators')
-const { Router } = require('express')
 const router = express.Router()
 
 router.get('/signup', (req, res) => {

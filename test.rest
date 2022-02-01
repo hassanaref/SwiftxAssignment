@@ -3,7 +3,7 @@ POST http://localhost:3000/signup/
 Content-Type: application/json
 
 {
-    "email":"112",
+    "email":"1112",
     "password":"12121212",
     "passwordConfirmation":"12121212"
 }
@@ -25,3 +25,31 @@ Content-Type: application/json
 
 ###signout
 GET http://localhost:3000/signout/
+
+###addTime
+POST http://localhost:3000/addtime/
+Content-Type: application/json
+
+{
+    "date":"12-12",
+    "distance":100,
+    "time":10
+}
+
+###getAllTimes
+GET http://localhost:3000/gettimes/
+
+###getOneTime
+GET http://localhost:3000/getTime/12-12
+
+
+###updateTime
+PATCH http://localhost:3000/update/12-12/
+Content-Type: application/json
+
+{
+    "time":20
+}
+
+###deleteTime
+DELETE http://localhost:3000/delete/12-12/
