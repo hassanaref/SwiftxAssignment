@@ -1,0 +1,27 @@
+###signingUpform
+POST http://localhost:3000/signup/
+Content-Type: application/json
+
+{
+    "email":"112",
+    "password":"12121212",
+    "passwordConfirmation":"12121212"
+}
+
+###signUpPage
+GET http://localhost:3000/signup/
+
+###signInPage
+GET http://localhost:3000/signin/
+
+###signInPage
+POST http://localhost:3000/signin/
+Content-Type: application/json
+
+{
+    "email":"1212",
+    "password":"121212"
+}
+
+###signout
+GET http://localhost:3000/signout/
