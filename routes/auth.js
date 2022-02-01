@@ -21,12 +21,13 @@ router.post(
   requirePasswordConfirmation,
   async (req, res) => {
     const { name, email, password } = req.body
-    if(res.err) {
+    if (res.err) {
       res.send(res.err)
     } else {
-    const user = await usersRepo.create({ name, email, password })
-    req.session.userId = user.id
-    res.json(user)}
+      const user = await usersRepo.create({ name, email, password })
+      req.session.userId = user.id
+      res.json(user)
+    }
   }
 )
 
@@ -39,9 +40,7 @@ router.get('/signin', (req, res) => {
   res.send('login page')
 })
 
-router.post('/signin',
-  requireValidPasswordForUser,
-  async (req, res) => {
+router.post('/signin', requireValidPasswordForUser, async (req, res) => {
   const { email } = req.body
   const user = await userDB.findOne({ email: email })
   if (res.err) {
@@ -49,7 +48,7 @@ router.post('/signin',
   } else {
     res.send('logged in')
     console.log(user)
-    req.session.userId=user.id
+    req.session.userId = user.id
   }
 })
 

@@ -1,7 +1,6 @@
 const usersRepo = require('../repositories/users')
 const userDB = require('../modules/userDB')
 
-
 async function requireValidPasswordForUser (req, res, next) {
   const user = await userDB.findOne({ email: req.body.email })
   if (!user) {
@@ -35,11 +34,17 @@ async function requirePassword (req, res, next) {
 }
 
 async function requirePasswordConfirmation (req, res, next) {
-  if(!res.err){
-  if (req.body.passwordConfirmation !== req.body.password) {
-    res.err = 'Passwords must match'
-  }}
+  if (!res.err) {
+    if (req.body.passwordConfirmation !== req.body.password) {
+      res.err = 'Passwords must match'
+    }
+  }
   next()
 }
 
-module.exports = { requireValidPasswordForUser,requireEmail,requirePassword,requirePasswordConfirmation }
+module.exports = {
+  requireValidPasswordForUser,
+  requireEmail,
+  requirePassword,
+  requirePasswordConfirmation
+}

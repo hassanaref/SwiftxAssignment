@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const util = require('util')
 const Repository = require('./repository')
-const {addUserToDB} = require('../mongoDB')
+const { addUserToDB, getAllUsers, getUser,editUser,deleteUser } = require('../mongoDB')
 
 const scrypt = util.promisify(crypto.scrypt)
 let passwordDB
@@ -34,6 +34,33 @@ class UsersRepository extends Repository {
       password: passwordDB
     }
     return record
+  }
+
+  async getAll () {
+    const users = getAllUsers()
+    return users
+  }
+
+  async getOneUser (email) {
+    const user = await getUser(email)
+    return user
+  }
+
+  async editUser (targetEmail, name, email, password) {
+    const salt = crypto.randomBytes(8).toString('hex')
+    const buf = await scrypt(password[1], salt, 64)
+    const cryptedpassword = `${buf.toString('hex')}.${salt}`
+    if(password[0]){
+      const updatedUser = await editUser(targetEmail,name,email)
+      return updatedUser
+    } else {
+    const updatedUser = await editUser(targetEmail,name,email,cryptedpassword)
+    return updatedUser}
+  }
+
+  async deleteUser (email){
+      const deleteStatus = await deleteUser(email)
+      return deleteStatus
   }
 }
 module.exports = new UsersRepository('users.json')
