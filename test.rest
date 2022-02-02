@@ -50,7 +50,7 @@ POST http://localhost:3000/addtime/
 Content-Type: application/json
 
 {
-    "date":"2009-12-3",
+    "date":"2009-5-5",
     "distance":100,
     "time":10
 }
@@ -74,4 +74,7 @@ DELETE http://localhost:3000/deletetime/2009-12-1/
 
 ###averageSpeed&distance
 GET http://localhost:3000/report/
+
+###filteredTimes
+GET http://localhost:3000/filter/2009-10-12/2009-12-25/
 

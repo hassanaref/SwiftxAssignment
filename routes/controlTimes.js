@@ -142,6 +142,11 @@ router.get('/filter/:from/:to', async (req, res) => {
     res.send('action not allowed')
   } else if (sessionRole.role == 'admin') {
     const alltimes = await timesRepo.getTimes()
+    const filteredTimes = alltimes.filter(time=>{
+      return (time.date>=new Date(req.params.from) && time.date<=new Date(req.params.to))
+    })
+    console.log(filteredTimes)
+    res.json(filteredTimes)
   } else {
     res.send('action not allowed')
   }
