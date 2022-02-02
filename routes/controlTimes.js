@@ -103,4 +103,47 @@ router.delete('/deletetime/:date', async (req, res) => {
     }
   }
 })
+
+router.get('/report', async (req, res) => {
+  const sessionRole = await usersRepo.checkRole(req.session.userId)
+  if (sessionRole == undefined) {
+    res.send('must login first')
+  } else if (sessionRole.role == 'users manager') {
+    res.send('action not allowed')
+  } else if (sessionRole.role == 'admin') {
+    const alltimes = await timesRepo.getTimes()
+    const speeds = []
+    const distances = []
+    console.log(alltimes)
+    alltimes.forEach(time => {
+      speeds.push(time.time)
+      distances.push(time.distance)
+    })
+    function averageCalc (arr) {
+      let sum = arr.reduce((a, b) => a + b, 0)
+      let average = sum / 2
+      return average
+    }
+    res.send(
+      `the average of speed is ${averageCalc(
+        speeds
+      )} and distance are ${averageCalc(distances)}`
+    )
+  } else {
+    res.send('action not allowed')
+  }
+})
+
+router.get('/filter/:from/:to', async (req, res) => {
+  const sessionRole = await usersRepo.checkRole(req.session.userId)
+  if (sessionRole == undefined) {
+    res.send('must login first')
+  } else if (sessionRole.role == 'users manager') {
+    res.send('action not allowed')
+  } else if (sessionRole.role == 'admin') {
+    const alltimes = await timesRepo.getTimes()
+  } else {
+    res.send('action not allowed')
+  }
+})
 module.exports = router

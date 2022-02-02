@@ -71,3 +71,7 @@ Content-Type: application/json
 
 ###deleteTime
 DELETE http://localhost:3000/deletetime/2009-12-1/
+
+###averageSpeed&distance
+GET http://localhost:3000/report/
+
