@@ -9,8 +9,8 @@ app.use(express.json())
 app.use(
   expressSession({
     secret: 'your secret',
-    saveUninitialized: false,
-    resave: false
+    saveUninitialized: true,
+    resave: true
   })
 )
 app.use(userAuth)

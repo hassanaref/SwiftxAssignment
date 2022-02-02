@@ -31,8 +31,10 @@ router.post(
   }
 )
 
-router.get('/signout', (req, res) => {
-  req.session = null
+router.get('/signout', async (req, res) => {
+  console.log(req.session.userId)
+  req.session.destroy()
+  console.log(req.session)
   res.send('You are logged out')
 })
 
@@ -46,9 +48,10 @@ router.post('/signin', requireValidPasswordForUser, async (req, res) => {
   if (res.err) {
     res.send(res.err)
   } else {
-    res.send('logged in')
     console.log(user)
     req.session.userId = user.id
+    console.log(req.session.userId)
+    res.send('logged in')
   }
 })
 

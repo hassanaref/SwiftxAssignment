@@ -1,14 +1,20 @@
 const crypto = require('crypto')
 const util = require('util')
-const Repository = require('./repository')
-const { addUserToDB, getAllUsers, getUser,editUser,deleteUser } = require('../mongoDB')
+const {
+  checkRole,
+  addUserToDB,
+  getAllUsers,
+  getUser,
+  editUser,
+  deleteUser
+} = require('../mongoDB')
 
 const scrypt = util.promisify(crypto.scrypt)
 let passwordDB
 let idDB
 let emailDB
 let nameDB
-class UsersRepository extends Repository {
+class UsersRepository {
   async comparePasswords (saved, supplied) {
     // Saved -> password saved in our database. 'hashed.salt'
     // Supplied -> password given to us by a user trying sign in
@@ -17,7 +23,18 @@ class UsersRepository extends Repository {
 
     return hashed === hashedSuppliedBuf.toString('hex')
   }
+  randomId () {
+    return crypto.randomBytes(4).toString('hex')
+  }
 
+  async checkRole (userId) {
+    const role = await checkRole(userId)
+    if (role) {
+      return role
+    } else {
+      undefined
+    }
+  }
   async create (attrs) {
     attrs.id = this.randomId()
     const salt = crypto.randomBytes(8).toString('hex')
@@ -37,7 +54,7 @@ class UsersRepository extends Repository {
   }
 
   async getAll () {
-    const users = getAllUsers()
+    const users = await getAllUsers()
     return users
   }
 
@@ -50,17 +67,23 @@ class UsersRepository extends Repository {
     const salt = crypto.randomBytes(8).toString('hex')
     const buf = await scrypt(password[1], salt, 64)
     const cryptedpassword = `${buf.toString('hex')}.${salt}`
-    if(password[0]){
-      const updatedUser = await editUser(targetEmail,name,email)
+    if (password[0]) {
+      const updatedUser = await editUser(targetEmail, name, email)
       return updatedUser
     } else {
-    const updatedUser = await editUser(targetEmail,name,email,cryptedpassword)
-    return updatedUser}
+      const updatedUser = await editUser(
+        targetEmail,
+        name,
+        email,
+        cryptedpassword
+      )
+      return updatedUser
+    }
   }
 
-  async deleteUser (email){
-      const deleteStatus = await deleteUser(email)
-      return deleteStatus
+  async deleteUser (email) {
+    const deleteStatus = await deleteUser(email)
+    return deleteStatus
   }
 }
-module.exports = new UsersRepository('users.json')
+module.exports = new UsersRepository()

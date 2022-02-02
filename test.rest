@@ -1,10 +1,10 @@
-###signingUpform
+###signUpform
 POST http://localhost:3000/signup/
 Content-Type: application/json
 
 {
     "name":"hassan aref",
-    "email":"111112",
+    "email":"11112",
     "password":"12121212",
     "passwordConfirmation":"12121212"
 }
@@ -20,8 +20,8 @@ POST http://localhost:3000/signin/
 Content-Type: application/json
 
 {
-    "email":"11112",
-    "password":"32323232"
+    "email":"111112",
+    "password":"12121212"
 }
 
 ###signout
@@ -38,19 +38,19 @@ PATCH http://localhost:3000/updateuser/11112/
 Content-Type: application/json
 
 {
-    "name":"hassa",
-    "password":"32323232"
+    "name":"hassa"
+    
 }
 
 ###deleteUser
-DELETE http://localhost:3000/deleteuser/111112/
+DELETE http://localhost:3000/deleteuser/11112/
 
 ###addTime
 POST http://localhost:3000/addtime/
 Content-Type: application/json
 
 {
-    "date":"12-12",
+    "date":"2009-12-3",
     "distance":100,
     "time":10
 }
@@ -59,15 +59,15 @@ Content-Type: application/json
 GET http://localhost:3000/gettimes/
 
 ###getOneTime
-GET http://localhost:3000/getTime/12-12/
+GET http://localhost:3000/getTime/2009-12-1/
 
 ###updateTime
-PATCH http://localhost:3000/update/12-12/
+PATCH http://localhost:3000/update/2009-12-2/
 Content-Type: application/json
 
 {
-    "time":20
+    "time":30
 }
 
 ###deleteTime
-DELETE http://localhost:3000/deletetime/12-12/
+DELETE http://localhost:3000/deletetime/2009-12-1/

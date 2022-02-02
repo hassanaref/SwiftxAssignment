@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 
 const joggingSchema = new mongoose.Schema({
-  date: String,
+  date: Date,
   distance: Number,
-  time: Number
+  time: Number,
+  userId: String
 })
 
 module.exports = mongoose.model('joggingTime', joggingSchema)
