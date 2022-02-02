@@ -59,7 +59,7 @@ Content-Type: application/json
 GET http://localhost:3000/gettimes/
 
 ###getOneTime
-GET http://localhost:3000/getTime/2009-12-1/
+GET http://localhost:3000/getTime/2009-5-5/
 
 ###updateTime
 PATCH http://localhost:3000/update/2009-12-2/
